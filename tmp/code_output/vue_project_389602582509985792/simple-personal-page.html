@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+        
+        section {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .about {
+            margin-bottom: 30px;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .skill {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            section {
+                padding: 20px;
+            }
+            
+            .contact {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://picsum.photos/120/120?random=1" alt="头像" class="avatar">
+            <h1>王小明</h1>
+            <p class="title">Web开发工程师</p>
+        </header>
+        
+        <section>
+            <div class="about">
+                <h2>关于我</h2>
+                <p>我是一名热爱编程的前端开发工程师，拥有3年Web开发经验。专注于创造优秀的用户体验，擅长使用现代前端技术构建响应式网站。</p>
+            </div>
+            
+            <h2>技能</h2>
+            <div class="skills">
+                <span class="skill">HTML5</span>
+                <span class="skill">CSS3</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">Vue.js</span>
+                <span class="skill">React</span>
+                <span class="skill">Node.js</span>
+                <span class="skill">Git</span>
+                <span class="skill">响应式设计</span>
+            </div>
+            
+            <h2>联系方式</h2>
+            <div class="contact">
+                <div class="contact-item">
+                    <strong>邮箱：</strong>
+                    <span>wangxiaoming@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <strong>电话：</strong>
+                    <span>138-1234-5678</span>
+                </div>
+                <div class="contact-item">
+                    <strong>地址：</strong>
+                    <span>上海市浦东新区</span>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 个人网页</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网页 | 简洁设计</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* 容器样式 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* 主要区域 */
+        section {
+            padding: 4rem 0;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        
+        /* 个人简介 */
+        .intro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid #3498db;
+        }
+        
+        .intro h1 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        /* 技能展示 */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .skill {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .skill h3 {
+            margin-bottom: 0.5rem;
+            color: #3498db;
+        }
+        
+        /* 项目展示 */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        /* 联系表单 */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin: 0 0.5rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">个人网页</div>
+            <ul class="nav-links">
+                <li><a href="#intro">简介</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 个人简介 -->
+    <section id="intro" class="intro">
+        <div class="container">
+            <img src="https://picsum.photos/150/150?random=1" alt="个人头像" class="profile-img">
+            <h1>张三</h1>
+            <p>前端开发工程师 | UI/UX 设计师</p>
+            <p>我是一名充满热情的前端开发人员，拥有5年以上的Web开发经验。我专注于创建美观、响应迅速且用户友好的网站和应用程序。我热衷于学习新技术，并致力于提供高质量的代码和用户体验。</p>
+        </div>
+    </section>
+
+    <!-- 技能展示 -->
+    <section id="skills">
+        <div class="container">
+            <h2>我的技能</h2>
+            <div class="skills-container">
+                <div class="skill">
+                    <h3>HTML/CSS</h3>
+                    <p>精通语义化HTML和现代CSS布局技术，包括Flexbox和Grid。</p>
+                </div>
+                <div class="skill">
+                    <h3>JavaScript</h3>
+                    <p>熟练使用原生JavaScript以及现代ES6+特性，能够构建交互式Web应用。</p>
+                </div>
+                <div class="skill">
+                    <h3>响应式设计</h3>
+                    <p>能够创建在各种设备上都能完美显示的响应式网站。</p>
+                </div>
+                <div class="skill">
+                    <h3>UI/UX设计</h3>
+                    <p>注重用户体验，能够设计直观、易用的界面。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section id="projects">
+        <div class="container">
+            <h2>我的项目</h2>
+            <div class="projects-container">
+                <div class="project">
+                    <img src="https://picsum.photos/400/300?random=2" alt="项目1">
+                    <div class="project-content">
+                        <h3>电子商务网站</h3>
+                        <p>一个完整的响应式电子商务网站，包含产品展示、购物车和结账功能。</p>
+                    </div>
+                </div>
+                <div class="project">
+                    <img src="https://picsum.photos/400/300?random=3" alt="项目2">
+                    <div class="project-content">
+                        <h3>任务管理应用</h3>
+                        <p>一个使用原生JavaScript构建的任务管理应用程序，具有添加、编辑和删除任务的功能。</p>
+                    </div>
+                </div>
+                <div class="project">
+                    <img src="https://picsum.photos/400/300?random=4" alt="项目3">
+                    <div class="project-content">
+                        <h3>个人博客平台</h3>
+                        <p>一个简洁的个人博客平台，具有文章分类、标签和评论功能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section id="contact">
+        <div class="container">
+            <h2>联系我</h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">消息</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit">发送消息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 个人网页. 保留所有权利.</p>
+            <p>邮箱: example@email.com | 电话: 123-456-7890</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 表单提交处理
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // 简单的表单验证
+            if(!name || !email || !message) {
+                alert('请填写所有字段');
+                return;
+            }
+            
+            // 在实际应用中，这里会发送数据到服务器
+            // 这里我们只显示一个成功消息
+            alert(`谢谢 ${name}！你的消息已发送。我会尽快回复你。`);
+            
+            // 重置表单
+            this.reset();
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if(window.scrollY > 100) {
+                nav.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -44,7 +44,7 @@ AppServiceImpl.chatToGenCode
 要点：
 
 - 意图识别不进对话记忆：分类器是无 memory 的独立 AiService，纯函数式调用，避免污染生成上下文。
-- 问答有独立记忆：`FrontendKnowledgeQaService` 按 appId 挂独立 `MessageWindowChatMemory`（Redis 存储 + MySQL 历史回放），memoryId 格式 `qa_{appId}`，与代码生成记忆（`{appId}`）隔离，多轮追问可接续。
+- 问答有独立记忆：`FrontendKnowledgeQaService` 按 appId 挂独立 `MessageWindowChatMemory`（Redis 存储 + MySQL 历史回放），memoryId 格式 `qa_{appId}`。Redis 层与代码生成记忆（`{appId}`）命名空间隔离；MySQL 历史回放为**有意共享**（同一 appId 的全部对话，含代码生成轮次），使"刚才生成的页面怎么改背景色"这类追问能接上下文。
 - 前端零改动：SSE 接口、事件格式（`{d:...}` + done）完全复用。
 - 意图识别结果只写日志，不新增 ChatHistory 表字段（YAGNI）。
 
@@ -99,23 +99,23 @@ public interface FrontendKnowledgeQaService {
 **代码生成分支：**
 
 ```
-classify(~1-2s, 非流式)
-  → {intent: CODE_GEN, codeGenType: VUE_PROJECT}
-  → chatHistoryService.addChatMessage(USER 消息)          ← 现有逻辑，位置不变
-  → Factory.getAiCodeGeneratorService(appId, 识别的类型)   ← 替换原硬编码
-  → 流式生成 → StreamHandler → 保存 tmp/code_output/{type}_{appId}
+用户消息 → addChatMessage(USER 消息)                     ← 现有逻辑，位置不变
+  → Facade.chat 内部: IntentClassifierService.classifyIntent(message)   (~1-2s, 非流式)
+      → {intent: CODE_GEN, codeGenType: VUE_PROJECT}
+      → Factory.getAiCodeGeneratorService(appId, 识别的类型)   ← 替换原硬编码
+      → 流式生成 → StreamHandler → 保存 tmp/code_output/{type}_{appId}
 ```
 
 **知识问答分支：**
 
 ```
-classify(~1-2s)
-  → {intent: KNOWLEDGE_QA}
-  → addChatMessage(USER 消息)                              ← 同样写历史
-  → FrontendKnowledgeQaService.chat("qa_" + appId, message)
-      ├─ Redis 向量库检索 top-4 切片
-      ├─ 切片注入 prompt 检索上下文
-      └─ 流式回答（TokenStream → Flux<String>，复用 processTokenStream 转换）
+用户消息 → addChatMessage(USER 消息)                      ← 同样写历史
+  → Facade.chat 内部: classify (~1-2s)
+      → {intent: KNOWLEDGE_QA}
+      → FrontendKnowledgeQaService.chat("qa_" + appId, message)
+          ├─ Redis 向量库检索 top-4 切片
+          ├─ 切片注入 prompt 检索上下文
+          └─ 流式回答（TokenStream → Flux<String>，复用 processTokenStream 转换）
   → SimpleTextStreamHandler 收集完整回答 → 写 AI 消息到历史 → SSE 吐给前端
 ```
 
